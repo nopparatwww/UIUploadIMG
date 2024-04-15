@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Form with Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+            width: 400px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select {
+            width: calc(100% - 16px);
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group select {
+            appearance: none;
+        }
+
+        .form-group input[type="radio"] {
+            display: none;
+        }
+
+        .form-group label.radio-label {
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .form-group input[type="radio"]:checked + label {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #imagePreview {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        #imagePreview img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            object-fit: cover;
+            margin: auto; /* ตรงกลางตามแนวนอน */
+        }
+
+        #uploadForm {
+            text-align: center;
+        }
+
+        #uploadForm button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>ใส่ข้อมูล</h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="contact">ช่องทางการติดต่อ:</label>
+                <input type="text" id="contact" name="contact">
+            </div>
+            <div class="form-group">
+                <label for="address">ที่อยู่:</label>
+                <input type="text" id="address" name="address">
+            </div>
+            <div class="form-group">
+                <label for="breed">ชนิดสัตว์ :</label>
+                <select id="breed" name="breed">
+                    <option value="labrador">Labrador</option>
+                    <option value="golden retriever">Golden Retriever</option>
+                    <option value="german shepherd">German Shepherd</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>เพศ:</label>
+                <input type="radio" id="male" name="gender" value="male">
+                <label class="radio-label" for="male">ตัวผู้</label>
+                <input type="radio" id="female" name="gender" value="female">
+                <label class="radio-label" for="female">ตัวเมีย</label>
+            </div>
+            <div class="form-group">
+                <label for="imageFile">อัพโหลดรูปภาพ:</label>
+                <input type="file" id="imageFile" name="imageFile" accept="image/*" onchange="previewImage(event)">
+            </div>
+            <div id="imagePreview" class="flex-center"></div>
+            <button type="submit">ตกลง</button>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            var imageFile = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                var imagePreview = document.getElementById('imagePreview');
+                imagePreview.innerHTML = '<img src="' + reader.result + '" alt="Preview">';
+            }
+
+            reader.readAsDataURL(imageFile);
+        }
+    </script>
+</body>
+</html>
